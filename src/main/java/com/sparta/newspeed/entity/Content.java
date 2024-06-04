@@ -2,6 +2,7 @@ package com.sparta.newspeed.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,4 +35,13 @@ public class Content {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
+
+    @Builder
+    public Content(User user, String title, String content, Date modifiedAt, Date createdAt) {
+        this.user = user;
+        this.title = title;
+        this.content = content;
+        this.modifiedAt = modifiedAt;
+        this.createdAt = createdAt;
+    }
 }
