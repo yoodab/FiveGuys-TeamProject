@@ -1,5 +1,6 @@
 package com.sparta.newspeed;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class UserController {
     } // 로그인
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout (HttpServletResponse res) {
-        userService.logout(res);
+    public ResponseEntity<String> logout (HttpServletRequest req) {
+        userService.logout(req);
         return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK );
     } // 로그아웃
 

@@ -3,8 +3,13 @@ package com.sparta.newspeed;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
 
-    RefreshToken findByREfreshTokenValue(String RefreshTokenValue);
+    Optional<RefreshToken> findByRefreshToken(String RefreshTokenValue);
+
+
+    Optional<RefreshToken> findByUser(User user);
 }

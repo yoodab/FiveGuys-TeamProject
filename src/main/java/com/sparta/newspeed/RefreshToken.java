@@ -2,22 +2,32 @@ package com.sparta.newspeed;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
 @Entity
-public class RefreshToken extends Timestamped {
+@Getter
+@Setter
+@Table(name = "refreshtoken")
+public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name="user_id")
     private User user;
 
-    private String refreshTokenValue;
+    @Column
+    private String refreshToken;
 
-    public String getRefreshToken() {
-        return this.refreshTokenValue;
+
+    public RefreshToken(String token, User user) {
+        this.refreshToken = token;
+        this.user = user;
+        this.user.setRefreshToken(token);
     }
 
+    public RefreshToken() {
+
+    }
 }

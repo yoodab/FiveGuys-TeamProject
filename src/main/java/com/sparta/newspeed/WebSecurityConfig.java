@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity // Spring Security 지원을 가능하게 함
@@ -20,15 +19,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig {
 
 
+
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
     private final RefreshTokenService refreshTokenService;
     private final AuthenticationConfiguration authenticationConfiguration;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() { //
-        return new BCryptPasswordEncoder();
-    }
+
 
     public WebSecurityConfig(JwtUtil jwtUtil, UserDetailsServiceImpl userDetailsService, AuthenticationConfiguration authenticationConfiguration, RefreshTokenService refreshTokenService) {
         this.jwtUtil = jwtUtil;
@@ -36,6 +33,12 @@ public class WebSecurityConfig {
         this.authenticationConfiguration = authenticationConfiguration;
         this.refreshTokenService = refreshTokenService;
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() { //
+        return new BCryptPasswordEncoder();
+    }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -53,18 +56,8 @@ public class WebSecurityConfig {
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {
-        return new JwtAuthorizationFilter(jwtUtil, refreshTokenService, userDetailsService );
+        return new JwtAuthorizationFilter(jwtUtil, refreshTokenService, userDetailsService);
     }
-//
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.logout()
-//                .logoutUrl("/logout")
-//                .logoutSuccessHandler(logoutSuccessHandler())
-//                .logoutSuccessUrl("/login?logout")
-//                .invalidateHttpSession(true)
-//                .deleteCookies("JSESSIONID");
-//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -77,27 +70,20 @@ public class WebSecurityConfig {
         );
 
         http.authorizeHttpRequests((authorizeHttpRequests) ->
-                authorizeHttpRequests
-                        .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
-                        .anyRequest().authenticated()
+                        authorizeHttpRequests
+                                .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
+                                .anyRequest().authenticated()
                 // 그 외 모든 요청 인증처리
-        ).logout((logout) -> logout
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .invalidateHttpSession(true));
-
+        );
 
 
 //         필터 관리
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class); // 인가
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 인증
 
-        // 접근 불가 페이지
-        http.exceptionHandling((exceptionhandling) ->
-                exceptionhandling
-                        .accessDeniedPage("/forbidden.html")
-        );
 
         return http.build();
     }
+
 
 }

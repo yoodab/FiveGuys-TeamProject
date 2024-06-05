@@ -22,6 +22,13 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private UserStatusEnum userStatus; // 회원 상태코드
 
+
+    private String refreshToken;
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
 //    private RefreshToken refreshToken; // 리프레쉬 토큰
 //
 //    private Content Content; // 게시물 외래키

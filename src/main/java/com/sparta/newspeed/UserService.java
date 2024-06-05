@@ -8,6 +8,7 @@ import org.aspectj.weaver.patterns.ConcreteCflowPointcut;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -35,9 +36,10 @@ public class UserService {
 
     }
 
-    public String logout(HttpSecurity httpSecurity,
-                         HttpServletResponse res) {
-        SecurityContext securityContext = httpSecurity.getSharedObject(SecurityContext.class);
+    public String logout(HttpServletRequest req
+
+    ) {
+        String logoutAccessToken = jwtUtil.getAccessTokenFromHeader(req);
 
         return null;
 
