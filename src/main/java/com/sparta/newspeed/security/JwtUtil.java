@@ -30,7 +30,6 @@ public class JwtUtil {
 
     // JWT 데이터
     private final LogoutAccessTokenService logoutAccessTokenService;
-
     // Header KEY 값
     public static final String AUTHORIZATION_HEADER = "Authorization";
     // Header KEY 값
