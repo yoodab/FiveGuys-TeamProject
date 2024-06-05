@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name="user")
 public class User extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +26,9 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String introduce; // 한줄소개
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserStatusEnum userStatus; // 회원 상태코드
-
-
+    @Column
     private String refreshToken;
 
     public void setRefreshToken(String refreshToken) {

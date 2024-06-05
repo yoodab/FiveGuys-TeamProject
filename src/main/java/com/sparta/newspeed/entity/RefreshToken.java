@@ -20,6 +20,9 @@ public class RefreshToken {
     @Column
     private String refreshToken;
 
+    @Column
+    private boolean expired=false;
+
 
     public RefreshToken(String token, User user) {
         this.refreshToken = token;

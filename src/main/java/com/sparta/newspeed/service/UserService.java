@@ -45,6 +45,7 @@ public class UserService {
 
         return "회원가입 성공";
     }
+
     @Transactional
     public String withdraw(String nickname) {
 
@@ -95,7 +96,3 @@ public class UserService {
         return userRepository.findByNickname(id).orElseThrow(() -> new IllegalArgumentException("등록된 회원이 아닙니다."));
     } // 유저 ID로 유저 찾기
 } // 로그인
-
-
-
-
