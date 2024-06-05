@@ -1,4 +1,4 @@
-package com.sparta.newspeed.contoller;
+package com.sparta.newspeed.controller;
 
 import com.sparta.newspeed.dto.PeedRequestDto;
 import com.sparta.newspeed.dto.PeedResponseDto;
