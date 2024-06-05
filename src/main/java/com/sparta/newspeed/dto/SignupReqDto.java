@@ -12,6 +12,4 @@ public class SignupReqDto {
     private String email; // 사용자 이메일
     private String introduce; // 사용자 한 줄 소개
 
-
-
 }
