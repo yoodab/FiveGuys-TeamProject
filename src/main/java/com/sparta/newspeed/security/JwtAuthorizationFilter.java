@@ -65,7 +65,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     }
 
                     RefreshToken issuedRefreshToken = refreshTokenService.findByRefreshToken(RefreshTokenValue);
-                    if(issuedRefreshToken.isExpired()){
+                    if(!issuedRefreshToken.isExpired()){
                         throw new IllegalArgumentException
                                 ("JwtAuthorizationFilter 69 : 로그아웃 처리된 리프레쉬 토큰입니다. 다시 로그인 해주세요.");
                     }
@@ -93,6 +93,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                         return;
                     }
                     //
+                } else {
+                    throw new IllegalArgumentException("리프레쉬 토큰이 없습니다.");
                 }
                 filterChain.doFilter(req, res);
             }//
