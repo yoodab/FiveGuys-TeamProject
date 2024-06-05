@@ -1,9 +1,8 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.contoller;
 
 import com.sparta.newspeed.dto.PeedRequestDto;
 import com.sparta.newspeed.dto.PeedResponseDto;
 import com.sparta.newspeed.service.PeedService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
