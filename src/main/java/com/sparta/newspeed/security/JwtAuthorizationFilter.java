@@ -58,13 +58,17 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                 if (StringUtils.hasText(refreshToken)) {
                     // JWT 토큰 substring
-
                     String RefreshTokenValue = jwtUtil.substringRefreshToken(refreshToken);
+
                     if (!jwtUtil.validateRefreshToken(RefreshTokenValue)) {
                         throw new IllegalArgumentException("리프레쉬 토큰이 만료됐음. 다시 로그인");
                     }
 
                     RefreshToken issuedRefreshToken = refreshTokenService.findByRefreshToken(RefreshTokenValue);
+                    if(issuedRefreshToken.isExpired()){
+                        throw new IllegalArgumentException
+                                ("JwtAuthorizationFilter 69 : 로그아웃 처리된 리프레쉬 토큰입니다. 다시 로그인 해주세요.");
+                    }
                     log.info("DB 기존 리프레쉬 토큰" + issuedRefreshToken.getRefreshToken());
                     User user = issuedRefreshToken.getUser();
                     String userId = user.getNickname();
