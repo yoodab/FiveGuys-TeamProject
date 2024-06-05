@@ -1,5 +1,9 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.service;
 
+import com.sparta.newspeed.entity.RefreshToken;
+import com.sparta.newspeed.entity.User;
+import com.sparta.newspeed.repository.RefreshTokenRepository;
+import com.sparta.newspeed.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +15,7 @@ public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtUtil jwtUtil;
+
     @Transactional
     public String createRefreshToken(User user) {
 

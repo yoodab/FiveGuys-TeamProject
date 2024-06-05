@@ -1,4 +1,4 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.entity;
 
 public enum UserStatusEnum {
     NORMAL(Authority.NORMAL),

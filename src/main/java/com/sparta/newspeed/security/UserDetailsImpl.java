@@ -1,5 +1,7 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.security;
 
+import com.sparta.newspeed.entity.User;
+import com.sparta.newspeed.entity.UserStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {

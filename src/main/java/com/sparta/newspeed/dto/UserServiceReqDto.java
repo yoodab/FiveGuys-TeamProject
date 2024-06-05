@@ -1,9 +1,10 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.dto;
 
 import lombok.Getter;
 
 @Getter
 public class UserServiceReqDto {
-    private String userId;
+    private String nickname;
+
     private String password;
 }

@@ -1,5 +1,7 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.repository;
 
+import com.sparta.newspeed.entity.RefreshToken;
+import com.sparta.newspeed.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

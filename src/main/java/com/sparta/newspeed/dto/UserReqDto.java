@@ -1,4 +1,4 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.dto;
 
 public class UserReqDto {
     private String UserId; // 사용자 ID

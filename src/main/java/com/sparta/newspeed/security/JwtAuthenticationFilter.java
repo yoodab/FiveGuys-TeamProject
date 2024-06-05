@@ -1,6 +1,8 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.newspeed.dto.UserServiceReqDto;
+import com.sparta.newspeed.entity.UserStatusEnum;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -32,7 +34,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             return getAuthenticationManager().authenticate( // 인증객체 만들기.
                     new UsernamePasswordAuthenticationToken(
-                            UserServiceReqDto.getUserId(),
+                            UserServiceReqDto.getNickname(),
                             UserServiceReqDto.getPassword(),
                             null //토큰을 만들어서 메서드 호출하고 ㅇ씨는 형태
                             //authenticate를 활용하면

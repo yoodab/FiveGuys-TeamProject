@@ -1,10 +1,13 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.security;
 
+import com.sparta.newspeed.service.LogoutAccessTokenService;
+import com.sparta.newspeed.entity.UserStatusEnum;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +22,14 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
-@Component
+
 @Slf4j(topic = "JwtUtil")
+@Component
+@RequiredArgsConstructor
 public class JwtUtil {
 
     // JWT 데이터
-
+    private final LogoutAccessTokenService logoutAccessTokenService;
 
     // Header KEY 값
     public static final String AUTHORIZATION_HEADER = "Authorization";
@@ -129,11 +134,14 @@ public class JwtUtil {
 
     public boolean validateAccessToken(String token) {
         try {
+            if(!logoutAccessTokenService.isExistLogoutToken(token)){
+                throw new IllegalArgumentException("로그아웃 처리된 액세스 토큰입니다, 다시 로그인 해주세요");
+            }
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException | ExpiredJwtException |
                  UnsupportedJwtException | IllegalArgumentException e) {
-            log.error(" : Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
+            log.error("액세스 토큰 : Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
         }
 
         return false;

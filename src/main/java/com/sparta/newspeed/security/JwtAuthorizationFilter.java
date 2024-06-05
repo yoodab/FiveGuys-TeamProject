@@ -1,5 +1,9 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.security;
 
+import com.sparta.newspeed.entity.RefreshToken;
+import com.sparta.newspeed.service.RefreshTokenService;
+import com.sparta.newspeed.entity.User;
+import com.sparta.newspeed.entity.UserStatusEnum;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,6 +27,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final RefreshTokenService refreshTokenService;
+
     private final UserDetailsServiceImpl userDetailsService;
 
 
@@ -41,6 +46,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             // JWT 토큰 substring
             String accessTokenValue = jwtUtil.substringAccessToken(accesstoken);
 
+
+
             if (!jwtUtil.validateAccessToken(accessTokenValue)) { // 액세스 토큰이 유효하지 않으면
 
                 log.error("액세스 토큰 만료");
@@ -58,20 +65,20 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     }
 
                     RefreshToken issuedRefreshToken = refreshTokenService.findByRefreshToken(RefreshTokenValue);
-                    log.info("DB 기존 리프레쉬 토큰"+issuedRefreshToken.getRefreshToken());
+                    log.info("DB 기존 리프레쉬 토큰" + issuedRefreshToken.getRefreshToken());
                     User user = issuedRefreshToken.getUser();
-                    String userId = user.getUserId();
+                    String userId = user.getNickname();
                     UserStatusEnum status = user.getUserStatus();
 
                     accesstoken = jwtUtil.createAccessToken(userId, status);
                     refreshToken = refreshTokenService.updateRefreshToken(issuedRefreshToken);
-                    log.info("DB 새로운 리프레쉬 토큰"+issuedRefreshToken.getRefreshToken());
+                    log.info("DB 새로운 리프레쉬 토큰" + issuedRefreshToken.getRefreshToken());
 
                     jwtUtil.addAccessJwtToHeader(accesstoken, res);
                     jwtUtil.addRefreshJwtToHeader(refreshToken, res);
 //
                     String newAccesstokenValue = jwtUtil.substringAccessToken(accesstoken);
-                    log.info("새로운 액세스 토큰:"+ newAccesstokenValue );
+                    log.info("새로운 액세스 토큰:" + newAccesstokenValue);
                     Claims info = jwtUtil.getUserInfoFromToken(newAccesstokenValue);
 
                     try {

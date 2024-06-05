@@ -1,4 +1,4 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,5 +1,6 @@
-package com.sparta.newspeed;
+package com.sparta.newspeed.entity;
 
+import com.sparta.newspeed.Timestamped;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -10,7 +11,7 @@ public class User extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 기본키
     @Column(nullable = false, unique = true)
-    private String UserId; // 사용자 ID
+    private String nickname; // 사용자 ID
     @Column(nullable = false)
     private String Password; // 비밀번호
     @Column(nullable = false)
