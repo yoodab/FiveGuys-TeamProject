@@ -22,8 +22,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
-    private final com.sparta.newspeed.service.LogoutAccessTokenService LogoutAccessTokenService;
-    private JwtUtil jwtUtil;
+    private final LogoutAccessTokenService LogoutAccessTokenService;
+    private final JwtUtil jwtUtil;
 
 
     public String signup(SignupReqDto requestDto) {
