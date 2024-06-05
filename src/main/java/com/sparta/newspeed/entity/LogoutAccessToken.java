@@ -7,13 +7,14 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Setter
+@Table(name="logout_access_token")
 public class LogoutAccessToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String logoutAccessToken;
-    boolean expired = false;
+
 
     public LogoutAccessToken(String accessToken) {
         this.logoutAccessToken = accessToken;

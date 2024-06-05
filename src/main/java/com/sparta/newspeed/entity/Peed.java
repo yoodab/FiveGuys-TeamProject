@@ -1,7 +1,5 @@
 package com.sparta.newspeed.entity;
 
-
-import com.sparta.newspeed.Timestamped;
 import com.sparta.newspeed.dto.PeedRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Table(name = "newspeed")// 매핑할 테이블의 이름을 지정
-public class Peed extends Timestamped {
+public class Peed extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,3 +32,4 @@ public class Peed extends Timestamped {
         this.username = requestDto.getUsername(); // 이름과 내용만 일단 수정되게
     }
 }
+
