@@ -7,6 +7,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Setter
+@Table(name="logout_access_token")
 public class LogoutAccessToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
