@@ -1,6 +1,8 @@
 package com.sparta.newspeed.service;
 
+import com.sparta.newspeed.entity.RefreshToken;
 import com.sparta.newspeed.entity.User;
+import com.sparta.newspeed.repository.LogoutAccessTokenRepository;
 import com.sparta.newspeed.repository.UserRepository;
 import com.sparta.newspeed.security.JwtUtil;
 import com.sparta.newspeed.dto.UserServiceReqDto;
@@ -20,6 +22,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
     private final com.sparta.newspeed.service.LogoutAccessTokenService LogoutAccessTokenService;
+    private final LogoutAccessTokenRepository logoutAccessTokenRepository;
+    private final LogoutAccessTokenService logoutAccessTokenService;
     private JwtUtil jwtUtil;
 
 //    public String signup () {} //회원 가입
@@ -126,9 +130,9 @@ public class UserService {
         LogoutAccessTokenService.saveLogoutAccessToken(accessToken);
 
         String refreshToken = jwtUtil.getRefreshTokenFromHeader(req);
-        refreshToken  = jwtUtil.substringRefreshToken(refreshToken);
-
-
+        String refreshTokenValue = jwtUtil.substringRefreshToken(refreshToken);
+        RefreshToken issuedRefreshToken = refreshTokenService.findByRefreshToken(refreshTokenValue);
+        issuedRefreshToken.setExpired(false);
     } // 로그아웃
 
 

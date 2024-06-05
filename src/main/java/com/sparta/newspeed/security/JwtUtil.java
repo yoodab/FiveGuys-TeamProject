@@ -134,7 +134,7 @@ public class JwtUtil {
 
     public boolean validateAccessToken(String token) {
         try {
-            if(!logoutAccessTokenService.isExistLogoutToken(token)){
+            if(logoutAccessTokenService.isExistLogoutToken(token)){
                 throw new IllegalArgumentException("로그아웃 처리된 액세스 토큰입니다, 다시 로그인 해주세요");
             }
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);

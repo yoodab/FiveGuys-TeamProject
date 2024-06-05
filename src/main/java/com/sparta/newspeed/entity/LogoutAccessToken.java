@@ -13,7 +13,7 @@ public class LogoutAccessToken {
     private Long id;
     @Column(nullable = false)
     private String logoutAccessToken;
-    boolean expired = false;
+
 
     public LogoutAccessToken(String accessToken) {
         this.logoutAccessToken = accessToken;
