@@ -22,8 +22,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
-    private final com.sparta.newspeed.service.LogoutAccessTokenService LogoutAccessTokenService;
-    private JwtUtil jwtUtil;
+    private final LogoutAccessTokenService LogoutAccessTokenService;
+    private final JwtUtil jwtUtil;
 
 
     public String signup(SignupReqDto requestDto) {
@@ -63,7 +63,7 @@ public class UserService {
 
         if (!user.getPassword().equals(userServiceDto.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        } else if (user.getUserStatus().equals(UserStatusEnum.NORMAL)) {
+        } else if (!user.getUserStatus().equals(UserStatusEnum.NORMAL)) {
             throw new IllegalArgumentException("탈퇴한 회원입니다.");
         }
 

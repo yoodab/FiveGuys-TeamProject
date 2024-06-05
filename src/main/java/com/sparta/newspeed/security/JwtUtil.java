@@ -149,6 +149,7 @@ public class JwtUtil {
 
     public boolean validateRefreshToken(String token) {
         try {
+
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException |
