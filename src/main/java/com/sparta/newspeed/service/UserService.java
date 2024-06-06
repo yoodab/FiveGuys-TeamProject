@@ -1,6 +1,7 @@
 package com.sparta.newspeed.service;
 
 import com.sparta.newspeed.dto.SignupReqDto;
+import com.sparta.newspeed.entity.RefreshToken;
 import com.sparta.newspeed.entity.User;
 import com.sparta.newspeed.repository.UserRepository;
 import com.sparta.newspeed.security.JwtUtil;
@@ -83,8 +84,8 @@ public class UserService {
 
         String refreshToken = jwtUtil.getRefreshTokenFromHeader(req);
         refreshToken = jwtUtil.substringRefreshToken(refreshToken);
-
-
+        RefreshToken issuedRefreshToken = refreshTokenService.findByRefreshToken(refreshToken);
+        issuedRefreshToken.setExpired(true);
     } // 로그아웃
 
 
