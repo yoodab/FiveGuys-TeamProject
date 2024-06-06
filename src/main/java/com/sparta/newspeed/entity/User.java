@@ -28,8 +28,8 @@ public class User extends Timestamped {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserStatusEnum userStatus; // 회원 상태코드
-    @Column
-    private String refreshToken;
+    @Column(nullable = true)
+    private String refreshToken=null;
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
@@ -46,7 +46,6 @@ public class User extends Timestamped {
 
     public void delete() {
         this.userStatus = UserStatusEnum.WITHDREW;
-
     }
 }
 

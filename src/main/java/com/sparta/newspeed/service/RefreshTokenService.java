@@ -24,6 +24,7 @@ public class RefreshTokenService {
         RefreshToken refreshToken = findByUser(user);
         refreshToken.setRefreshToken(tokenValue);
         refreshToken.setUser(user);
+        refreshToken.setExpired(false);
         refreshTokenRepository.save(refreshToken);
         return token;
 
@@ -49,7 +50,8 @@ public class RefreshTokenService {
 
     public RefreshToken findByRefreshToken(String tokenValue) {
         return refreshTokenRepository.findByRefreshToken(tokenValue)
-                .orElseThrow(() -> new IllegalArgumentException("리프레쉬 토큰을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException
+                        ("RefreshTokenService 53 : 리프레쉬 토큰을 찾을 수 없습니다."));
 
     }
 

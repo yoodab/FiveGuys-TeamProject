@@ -1,6 +1,7 @@
 package com.sparta.newspeed.service;
 
 import com.sparta.newspeed.dto.SignupReqDto;
+import com.sparta.newspeed.entity.RefreshToken;
 import com.sparta.newspeed.entity.User;
 import com.sparta.newspeed.repository.UserRepository;
 import com.sparta.newspeed.security.JwtUtil;
@@ -22,8 +23,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
-    private final com.sparta.newspeed.service.LogoutAccessTokenService LogoutAccessTokenService;
-    private JwtUtil jwtUtil;
+    private final LogoutAccessTokenService LogoutAccessTokenService;
+    private final JwtUtil jwtUtil;
 
 
     public String signup(SignupReqDto requestDto) {
@@ -63,7 +64,7 @@ public class UserService {
 
         if (!user.getPassword().equals(userServiceDto.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        } else if (user.getUserStatus().equals(UserStatusEnum.NORMAL)) {
+        } else if (!user.getUserStatus().equals(UserStatusEnum.NORMAL)) {
             throw new IllegalArgumentException("탈퇴한 회원입니다.");
         }
 
@@ -83,8 +84,8 @@ public class UserService {
 
         String refreshToken = jwtUtil.getRefreshTokenFromHeader(req);
         refreshToken = jwtUtil.substringRefreshToken(refreshToken);
-
-
+        RefreshToken issuedRefreshToken = refreshTokenService.findByRefreshToken(refreshToken);
+        issuedRefreshToken.setExpired(true);
     } // 로그아웃
 
 
