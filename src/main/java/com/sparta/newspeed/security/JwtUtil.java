@@ -115,7 +115,7 @@ public class JwtUtil {
             return tokenValue.substring(7);
         }
         logger.error("Not Found Token");
-        throw new NullPointerException("토큰이 유효하지 않습니다.");
+        throw new NullPointerException("JwtUtil 118 : 액세스 토큰이 유효하지 않습니다.");
     }
 
     public String substringRefreshToken(String tokenValue) {
@@ -123,7 +123,7 @@ public class JwtUtil {
             return tokenValue.substring(7);
         }
         logger.error("Not Found Token");
-        throw new NullPointerException("토큰이 유효하지 않습니다.");
+        throw new NullPointerException("JwtUtil 126 : 리프레쉬 토큰이 유효하지 않습니다.");
     }
 
 
@@ -134,7 +134,7 @@ public class JwtUtil {
     public boolean validateAccessToken(String token) {
         try {
             if(logoutAccessTokenService.isExistLogoutToken(token)){
-                throw new IllegalArgumentException("로그아웃 처리된 액세스 토큰입니다, 다시 로그인 해주세요");
+                throw new IllegalArgumentException("JwtUtil 137 :로그아웃 처리된 액세스 토큰입니다, 다시 로그인 해주세요");
             }
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
@@ -154,9 +154,10 @@ public class JwtUtil {
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException |
                  UnsupportedJwtException | IllegalArgumentException e) {
+
             log.error("리프레쉬 토큰 : Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
         } catch (ExpiredJwtException e) {
-            throw new IllegalArgumentException("재로그인 해주세요.");
+            throw new IllegalArgumentException("JwtUtil 159 : 리프레쉬 토큰이 만료 됐습니다. 재로그인 해주세요.");
 
         }
 
