@@ -21,17 +21,16 @@ public class RefreshTokenService {
 
         String token = jwtUtil.createRefreshToken();
         String tokenValue = jwtUtil.substringRefreshToken(token);
-        RefreshToken refreshToken = findByUser(user);
+        RefreshToken refreshToken = findRefreshTokenByUser(tokenValue, user);
         refreshToken.setRefreshToken(tokenValue);
-        refreshToken.setUser(user);
-        refreshToken.setExpired(false);
+        user.setRefreshToken(tokenValue);
         refreshTokenRepository.save(refreshToken);
         return token;
 
     }
 
-    private RefreshToken findByUser(User user) {
-        return refreshTokenRepository.findByUser(user).orElse(new RefreshToken());
+    private RefreshToken findRefreshTokenByUser(String tokenValue, User user) {
+        return refreshTokenRepository.findByUser(user).orElse(new RefreshToken(tokenValue, user));
 
     }
 
