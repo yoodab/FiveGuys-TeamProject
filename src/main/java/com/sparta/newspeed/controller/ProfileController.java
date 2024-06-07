@@ -1,15 +1,15 @@
 package com.sparta.newspeed.controller;
 
+import com.sparta.newspeed.dto.UserReqDto;
 import com.sparta.newspeed.dto.UserResDto;
 import com.sparta.newspeed.security.UserDetailsImpl;
 import com.sparta.newspeed.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 
@@ -17,10 +17,10 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
-        @GetMapping("/profile")
-    public UserResDto getProfile(UserDetailsImpl userDetails) {
+    @GetMapping("/profile")
+    public UserResDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return profileService.getProfile(userDetails);
     }
 
-    }
+}
 

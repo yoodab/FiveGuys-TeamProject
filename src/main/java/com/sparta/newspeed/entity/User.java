@@ -67,6 +67,7 @@ public class User extends Timestamped {
         this.introduce = userReqDto.getIntroduce();
         this.password = userReqDto.getPassword();
     }
+
 }
 
 //    private RefreshToken refreshToken; // 리프레쉬 토큰
