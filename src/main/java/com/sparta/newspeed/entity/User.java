@@ -57,7 +57,7 @@ public class User extends Timestamped {
         this.userStatus = UserStatusEnum.NORMAL;
     }
 
-    public void delete() {
+    public void withdraw() {
         this.userStatus = UserStatusEnum.WITHDREW;
     }
 

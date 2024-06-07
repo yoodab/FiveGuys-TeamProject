@@ -17,7 +17,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{newspeedId}")
+    @PostMapping("/{newspeedId}/comment")
     public ResponseEntity<String> addComment(@PathVariable Long newspeedId,
                                              @RequestBody CommentReqDto commentReqDto,
                                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
