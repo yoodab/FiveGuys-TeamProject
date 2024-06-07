@@ -21,16 +21,16 @@ public class RefreshTokenService {
 
         String token = jwtUtil.createRefreshToken();
         String tokenValue = jwtUtil.substringRefreshToken(token);
-        RefreshToken refreshToken = findByUser(user);
+        RefreshToken refreshToken = findRefreshTokenByUser(user);
         refreshToken.setRefreshToken(tokenValue);
-        refreshToken.setUser(user);
+        user.setRefreshToken(tokenValue);
         refreshTokenRepository.save(refreshToken);
         return token;
 
     }
 
-    private RefreshToken findByUser(User user) {
-        return refreshTokenRepository.findByUser(user).orElse(new RefreshToken());
+    private RefreshToken findRefreshTokenByUser(User user) {
+        return refreshTokenRepository.findByUser(user).orElse(new RefreshToken(user));
 
     }
 
@@ -49,7 +49,8 @@ public class RefreshTokenService {
 
     public RefreshToken findByRefreshToken(String tokenValue) {
         return refreshTokenRepository.findByRefreshToken(tokenValue)
-                .orElseThrow(() -> new IllegalArgumentException("리프레쉬 토큰을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException
+                        ("RefreshTokenService 53 : 리프레쉬 토큰을 찾을 수 없습니다."));
 
     }
 

@@ -21,16 +21,19 @@ public class RefreshToken {
     private String refreshToken;
 
     @Column
-    private boolean expired=false;
+    private boolean expired = false;
 
 
-    public RefreshToken(String token, User user) {
-        this.refreshToken = token;
+    public RefreshToken(User user) {
+
+        this.expired = false;
         this.user = user;
-        this.user.setRefreshToken(token);
+
     }
 
     public RefreshToken() {
 
     }
+
+
 }

@@ -5,12 +5,17 @@ import com.sparta.newspeed.dto.SignupReqDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
-@Table(name="user")
+@Table(name = "user")
 public class User extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +33,11 @@ public class User extends Timestamped {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserStatusEnum userStatus; // 회원 상태코드
-    @Column
-    private String refreshToken;
+    @Column(nullable = true)
+    private String refreshToken = null;
+//    @OneToMany(mappedBy="user")
+//    private List<Peed> peedlist = new ArrayList<>();
+
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
@@ -40,13 +48,12 @@ public class User extends Timestamped {
         this.password = requestDto.getPassword();
         this.userName = requestDto.getUserName();
         this.email = requestDto.getEmail();
-        this.introduce =requestDto.getIntroduce();
+        this.introduce = requestDto.getIntroduce();
         this.userStatus = UserStatusEnum.NORMAL;
     }
 
     public void delete() {
         this.userStatus = UserStatusEnum.WITHDREW;
-
     }
 }
 
