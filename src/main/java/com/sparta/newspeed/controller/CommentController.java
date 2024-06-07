@@ -51,6 +51,7 @@ public class CommentController {
                                        @AuthenticationPrincipal UserDetailsImpl userDetails
 
     ) {
+        commentService.deleteComment(newspeedId, commentId, userDetails);
         return new ResponseEntity<>("삭제 완료",HttpStatus.OK);
 
     }
