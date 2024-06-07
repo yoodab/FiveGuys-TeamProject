@@ -6,6 +6,10 @@ import com.sparta.newspeed.entity.Peed;
 import com.sparta.newspeed.exception.SuccessHandler;
 import com.sparta.newspeed.repository.PeedRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +23,8 @@ public class PeedService {
         this.peedRepository = peedRepository;
     }
 
-    public PeedResponseDto createPeed(PeedRequestDto requestDto) {
-        Peed peed = new Peed(requestDto);
+    public PeedResponseDto createPeed(PeedRequestDto requestDto, String username) {
+        Peed peed = new Peed(requestDto, username);
         Peed savepeed = peedRepository.save(peed);
         return new PeedResponseDto(savepeed);
 
@@ -41,14 +45,17 @@ public class PeedService {
         return peed_id;
     }
 
-    public List<PeedResponseDto> getAllPeeds() {
-        //
-        List<PeedResponseDto> peeds = peedRepository.findAllByOrderByCreatedAtDesc().stream()
-                .map(PeedResponseDto::new).toList();
+    public Page<PeedResponseDto> getAllPeeds(int page, int size, String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+
+        Page<Peed> peeds = peedRepository.findAll(pageable);
         if (peeds.isEmpty()) {
             throw new SuccessHandler("먼저 작성하여 소식을 알려보세요!", HttpServletResponse.SC_OK);
         }
-        return peeds;
+        return peeds.map(PeedResponseDto::new);
     }
 
     private Peed findPeed(Long id) {
