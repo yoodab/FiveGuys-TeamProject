@@ -1,6 +1,7 @@
 package com.sparta.newspeed.service;
 
 import com.sparta.newspeed.dto.SignupReqDto;
+import com.sparta.newspeed.dto.WithdrawReqDto;
 import com.sparta.newspeed.entity.RefreshToken;
 import com.sparta.newspeed.entity.User;
 import com.sparta.newspeed.repository.UserRepository;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
+
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
     private final LogoutAccessTokenService LogoutAccessTokenService;
@@ -31,6 +35,8 @@ public class UserService {
     public String signup(SignupReqDto requestDto) {
 
         String nickName = requestDto.getNickname();
+        String password = passwordEncoder.encode(requestDto.getPassword());
+        requestDto.setPassword(password);
 
         // 회원 중복 확인
         Optional<User> checkNickName = userRepository.findByNickname(nickName);
@@ -49,14 +55,13 @@ public class UserService {
     }
 
     @Transactional
-    public String withdraw(String nickname) {
-
-        User user = userRepository.findByNickname(nickname)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        ;
-        user.delete();
-
-        return "회원 탈퇴 성공";
+    public String withdraw(User user, WithdrawReqDto withdrawReqDto) {
+        if(passwordEncoder.matches(withdrawReqDto.getPassword(),user.getPassword())){
+            user.withdraw();
+            return "회원 탈퇴 성공";
+        }else{
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
+        }
     } // 회원 탈퇴
 
 
