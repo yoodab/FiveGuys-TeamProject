@@ -90,6 +90,7 @@ public class WebSecurityConfig {
                 // 그 외 모든 요청 인증처리
         );
 
+//        http.exceptionHandling().authenticationEntryPoint() 예외를 잡는 방법중 하나
 
 //         필터 관리
 
