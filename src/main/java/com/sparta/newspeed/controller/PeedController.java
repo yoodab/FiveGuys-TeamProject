@@ -2,6 +2,7 @@ package com.sparta.newspeed.controller;
 
 import com.sparta.newspeed.dto.PeedRequestDto;
 import com.sparta.newspeed.dto.PeedResponseDto;
+import com.sparta.newspeed.security.UserDetailsImpl;
 import com.sparta.newspeed.service.PeedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,8 @@ public class PeedController {
     }
 
     @PostMapping("/peeds")
-    public PeedResponseDto createSchedule(@RequestBody PeedRequestDto requestDto, @AuthenticationPrincipal UserDetails userDetails){
-        return peedService.createPeed(requestDto, userDetails.getUsername());
+    public PeedResponseDto createSchedule(@RequestBody PeedRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
+        return peedService.createPeed(requestDto, userDetailsImpl);
     }
 
     @GetMapping("/peeds")

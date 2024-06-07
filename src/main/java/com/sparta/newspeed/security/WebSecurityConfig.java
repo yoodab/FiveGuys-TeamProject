@@ -4,6 +4,7 @@ import com.sparta.newspeed.service.RefreshTokenService;
 import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -79,8 +80,13 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
+//                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/user/login").permitAll()
+                                .requestMatchers("/user/signup").permitAll() // 인증이 필요 없다, 토큰이 없어도 된다.
+                                .requestMatchers(HttpMethod.GET,"/peeds/**").permitAll()// '/api/user/'로 시작하는 요청 모두 접근 허가
+                                .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
+
                 // 그 외 모든 요청 인증처리
         );
 
@@ -94,12 +100,11 @@ public class WebSecurityConfig {
 
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class); // 인가필터
         http.addFilterBefore(exceptionHandlerFilter(), JwtAuthorizationFilter.class); // 예외 핸들링 필터
+        http.addFilterBefore(characterEncodingFilter, ExceptionHandlerFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 인증 필터
 
         // 예외 > 인가 > 인증
 
-
-//        http.addFilterBefore(characterEncodingFilter, ExceptionHandlerFilter.class);
 
         return http.build();
     }
