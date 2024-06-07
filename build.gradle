@@ -37,6 +37,10 @@ dependencies {
     // MySQL
     implementation 'mysql:mysql-connector-java:8.0.28'
 
+    //mailcheck
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
