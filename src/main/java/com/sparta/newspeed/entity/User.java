@@ -5,6 +5,7 @@ import com.sparta.newspeed.dto.SignupReqDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
-
+@Setter
 @NoArgsConstructor
 @Table(name = "user")
 public class User extends Timestamped {

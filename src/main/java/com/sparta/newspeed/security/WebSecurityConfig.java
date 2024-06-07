@@ -92,12 +92,14 @@ public class WebSecurityConfig {
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
 
+        http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class); // 인가필터
+        http.addFilterBefore(exceptionHandlerFilter(), JwtAuthorizationFilter.class); // 예외 핸들링 필터
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 인증 필터
 
-        http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class); // 인가
-        http.addFilterBefore(exceptionHandlerFilter(), JwtAuthorizationFilter.class); // 인가
-        http.addFilterBefore(characterEncodingFilter, ExceptionHandlerFilter.class);
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 인증
+        // 예외 > 인가 > 인증
 
+
+//        http.addFilterBefore(characterEncodingFilter, ExceptionHandlerFilter.class);
 
         return http.build();
     }

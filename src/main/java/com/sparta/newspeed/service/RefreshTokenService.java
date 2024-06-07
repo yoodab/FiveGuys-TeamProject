@@ -21,7 +21,7 @@ public class RefreshTokenService {
 
         String token = jwtUtil.createRefreshToken();
         String tokenValue = jwtUtil.substringRefreshToken(token);
-        RefreshToken refreshToken = findRefreshTokenByUser(tokenValue, user);
+        RefreshToken refreshToken = findRefreshTokenByUser(user);
         refreshToken.setRefreshToken(tokenValue);
         user.setRefreshToken(tokenValue);
         refreshTokenRepository.save(refreshToken);
@@ -29,8 +29,8 @@ public class RefreshTokenService {
 
     }
 
-    private RefreshToken findRefreshTokenByUser(String tokenValue, User user) {
-        return refreshTokenRepository.findByUser(user).orElse(new RefreshToken(tokenValue, user));
+    private RefreshToken findRefreshTokenByUser(User user) {
+        return refreshTokenRepository.findByUser(user).orElse(new RefreshToken(user));
 
     }
 
