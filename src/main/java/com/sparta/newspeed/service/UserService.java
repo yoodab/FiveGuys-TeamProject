@@ -49,8 +49,6 @@ public class UserService {
         User user = new User(requestDto);
         userRepository.save(user);
 
-
-
         return "회원가입 성공";
     }
 
@@ -101,7 +99,7 @@ public class UserService {
     } // 유저 ID로 유저 찾기
 
     public Boolean checkUserId(User user, UserServiceReqDto userServiceReqDto) {
-        if (!user.getPassword().equals(userServiceReqDto.getPassword())) {
+        if (!passwordEncoder.matches(userServiceReqDto.getPassword(),user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         } else if (!user.getUserStatus().equals(UserStatusEnum.NORMAL)) {
             throw new IllegalArgumentException("탈퇴한 회원입니다.");
