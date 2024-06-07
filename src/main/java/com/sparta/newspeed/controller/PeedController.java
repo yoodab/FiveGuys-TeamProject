@@ -2,8 +2,12 @@ package com.sparta.newspeed.controller;
 
 import com.sparta.newspeed.dto.PeedRequestDto;
 import com.sparta.newspeed.dto.PeedResponseDto;
+import com.sparta.newspeed.security.UserDetailsImpl;
 import com.sparta.newspeed.service.PeedService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +25,19 @@ public class PeedController {
     }
 
     @PostMapping("/peeds")
-    public PeedResponseDto createSchedule(@RequestBody PeedRequestDto requestDto){
-        return peedService.createPeed(requestDto);
+    public PeedResponseDto createSchedule(@RequestBody PeedRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
+        return peedService.createPeed(requestDto, userDetailsImpl);
     }
 
     @GetMapping("/peeds")
-    public List<PeedResponseDto> getAllPeeds(){
-        return peedService.getAllPeeds();
+    public Page<PeedResponseDto> getAllPeeds(
+            @RequestParam("page") int page,
+            @RequestParam("page") int size,
+            @RequestParam("page") String sortBy,
+            @RequestParam("page") boolean isAsc
+
+    ){
+        return peedService.getAllPeeds(page-1, size, sortBy, isAsc);
     }
 
     @PutMapping("/peeds/{id}")
