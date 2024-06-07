@@ -44,8 +44,8 @@ public class UserController {
     } // 로그인
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest req) {
-        userService.logout(req);
+    public ResponseEntity<String> logout(HttpServletRequest req, UserDetailsImpl userDetailsImpl) {
+        userService.logout(req, userDetailsImpl);
         return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
     } // 로그아웃
 
