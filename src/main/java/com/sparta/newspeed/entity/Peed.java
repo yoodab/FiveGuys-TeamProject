@@ -22,8 +22,8 @@ public class Peed extends Timestamped{
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
 
-    public Peed(PeedRequestDto requestDto) {
-        this.username = requestDto.getUsername();
+    public Peed(PeedRequestDto requestDto, String username) {
+        this.username = username;
         this.contents = requestDto.getContents();
     }
 
