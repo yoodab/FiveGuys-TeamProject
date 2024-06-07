@@ -9,8 +9,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @Slf4j
 @RestController
@@ -24,7 +22,7 @@ public class PeedController {
     }
 
     @PostMapping("/peeds")
-    public PeedResponseDto createSchedule(@RequestBody PeedRequestDto requestDto, @AuthenticationPrincipal UserDetails userDetails){
+    public PeedResponseDto createSchedule(@RequestBody PeedRequestDto requestDto, @AuthenticationPrincipal UserDetails userDetails) {
         return peedService.createPeed(requestDto, userDetails.getUsername());
     }
 
@@ -35,14 +33,15 @@ public class PeedController {
             @RequestParam("page") String sortBy,
             @RequestParam("page") boolean isAsc
 
-    ){
-        return peedService.getAllPeeds(page-1, size, sortBy, isAsc);
+    ) {
+        return peedService.getAllPeeds(page - 1, size, sortBy, isAsc);
     }
 
     @PutMapping("/peeds/{id}")
     public PeedResponseDto updateMemo(@PathVariable Long id, @RequestBody PeedRequestDto requestDto) {
         return peedService.updatePeed(id, requestDto);
     }
+
     @DeleteMapping("/peeds/{id}")
     public Long deleteMemo(@PathVariable Long id, @RequestBody PeedRequestDto requestDto) {
         return peedService.deletePeed(id, requestDto);

@@ -1,7 +1,6 @@
 package com.sparta.newspeed.service;
 
 import com.sparta.newspeed.entity.LogoutAccessToken;
-import com.sparta.newspeed.entity.RefreshToken;
 import com.sparta.newspeed.repository.LogoutAccessTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ public class LogoutAccessTokenService {
         }
         return false;
     }
-
 
 
 }

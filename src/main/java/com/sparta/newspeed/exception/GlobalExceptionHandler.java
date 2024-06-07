@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-    @ExceptionHandler({ SuccessHandler.class})
+    @ExceptionHandler({SuccessHandler.class, Exception.class})
 
-    public ResponseEntity<ErrorDto> handleCustomExceptions(RuntimeException ex) {
+    public ResponseEntity<ErrorDto> handleCustomExceptions(Exception ex) {
         int statusCode;
         if (ex instanceof SuccessHandler) {
             statusCode = ((SuccessHandler) ex).getStatusCode();
-        }else{
+        } else {
             statusCode = HttpStatus.BAD_REQUEST.value(); // 기본 상태 코드
         }
         ErrorDto errorDto = new ErrorDto(ex.getMessage(), String.valueOf(statusCode));

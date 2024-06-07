@@ -31,7 +31,7 @@ public class UserController {
 
     @PutMapping("/withdraw")
     public ResponseEntity<String> withdraw(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody WithdrawReqDto withdrawReqDto) {
-        String withdrawMessage = userService.withdraw(userDetails.getUser(),withdrawReqDto);
+        String withdrawMessage = userService.withdraw(userDetails.getUser(), withdrawReqDto);
         return new ResponseEntity<>(withdrawMessage, HttpStatus.OK);
     } // 회원 탈퇴
 
