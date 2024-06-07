@@ -2,6 +2,7 @@ package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.Timestamped;
 import com.sparta.newspeed.dto.SignupReqDto;
+import com.sparta.newspeed.dto.UserReqDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name="user")
 public class User extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String password; // 비밀번호
     @Column(nullable = false)
-    private String userName; // 사용자 이름
+    private String username; // 사용자 이름
     @Column(nullable = false)
     private String email; // 사용자 이메일
     @Column(nullable = false)
@@ -34,9 +35,13 @@ public class User extends Timestamped {
     @Enumerated(EnumType.STRING)
     private UserStatusEnum userStatus; // 회원 상태코드
     @Column(nullable = true)
-    private String refreshToken = null;
+    private String refreshToken=null;
+
     @OneToMany(mappedBy="user")
     private List<Peed> peedlist = new ArrayList<>();
+
+    @OneToMany(mappedBy="user")
+    private List<Comment> commentList = new ArrayList<>();
 
 
     public void setRefreshToken(String refreshToken) {
@@ -46,14 +51,21 @@ public class User extends Timestamped {
     public User(SignupReqDto requestDto) {
         this.nickname = requestDto.getNickname();
         this.password = requestDto.getPassword();
-        this.userName = requestDto.getUserName();
+        this.username = requestDto.getUsername();
         this.email = requestDto.getEmail();
-        this.introduce = requestDto.getIntroduce();
+        this.introduce =requestDto.getIntroduce();
         this.userStatus = UserStatusEnum.NORMAL;
     }
 
     public void withdraw() {
         this.userStatus = UserStatusEnum.WITHDREW;
+    }
+
+    public void update(UserReqDto userReqDto) {
+        this.username = userReqDto.getUsername();
+        this.email = userReqDto.getEmail();
+        this.introduce = userReqDto.getIntroduce();
+        this.password = userReqDto.getPassword();
     }
 }
 
