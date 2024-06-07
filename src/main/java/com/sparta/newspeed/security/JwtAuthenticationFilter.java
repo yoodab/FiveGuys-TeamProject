@@ -2,7 +2,9 @@ package com.sparta.newspeed.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.newspeed.dto.UserServiceReqDto;
+import com.sparta.newspeed.entity.User;
 import com.sparta.newspeed.entity.UserStatusEnum;
+import com.sparta.newspeed.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -21,8 +23,10 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final JwtUtil jwtUtil;
 
+
     public JwtAuthenticationFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
+
         setFilterProcessesUrl("/api/user/login");
     }
 
@@ -31,6 +35,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("로그인 시도");
         try {
             UserServiceReqDto UserServiceReqDto = new ObjectMapper().readValue(request.getInputStream(), UserServiceReqDto.class); // httpServletRequest의 request를 LoginRequestDto로 변환
+
 
             return getAuthenticationManager().authenticate( // 인증객체 만들기.
                     new UsernamePasswordAuthenticationToken(
