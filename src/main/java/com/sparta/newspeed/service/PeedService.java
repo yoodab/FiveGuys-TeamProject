@@ -67,7 +67,7 @@ public class PeedService {
         return peeds.map(PeedResponseDto::new);
     }
 
-    Peed findPeed(Long id) {
+    public Peed findPeed(Long id) {
         return peedRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("peed not found"));
     }

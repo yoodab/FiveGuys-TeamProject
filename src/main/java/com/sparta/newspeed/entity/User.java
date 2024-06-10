@@ -45,6 +45,10 @@ public class User extends Timestamped {
     @OneToMany(mappedBy="user")
     private List<Comment> commentList = new ArrayList<>();
 
+    @OneToMany(mappedBy="user")
+    private List<Likes> likesList = new ArrayList<>();
+
+
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
