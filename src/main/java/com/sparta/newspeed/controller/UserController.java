@@ -4,10 +4,12 @@ import com.sparta.newspeed.dto.SignupReqDto;
 import com.sparta.newspeed.dto.UserServiceReqDto;
 import com.sparta.newspeed.dto.WithdrawReqDto;
 import com.sparta.newspeed.security.UserDetailsImpl;
+import com.sparta.newspeed.service.EmailService;
 import com.sparta.newspeed.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -17,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+
 @Tag(name = "회원 API", description = "회원가입/로그인/로그아웃/탈퇴 API")
 @RestController
 @RequestMapping("/user")
@@ -24,12 +28,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final EmailService emailService;
 
     @Operation(summary = "회원가입", description = "회원가입을 수행합니다.")
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@Valid @RequestBody SignupReqDto signupRequestDto) {
+    public ResponseEntity<String> signup(@Valid @RequestBody SignupReqDto signupRequestDto) throws MessagingException, UnsupportedEncodingException {
         String signupMessage = userService.signup(signupRequestDto);
-        System.out.println(signupRequestDto.getEmail());
+        emailService.sendEmail(signupRequestDto.getEmail());
         return new ResponseEntity<>(signupMessage, HttpStatus.OK);
     } //회원 가입
 
