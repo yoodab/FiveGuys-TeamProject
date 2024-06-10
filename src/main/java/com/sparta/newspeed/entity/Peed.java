@@ -32,6 +32,10 @@ public class Peed extends Timestamped{
     @OneToMany(mappedBy="peed")
     private List<Comment> commentList = new ArrayList<>();
 
+    private int likesCount;
+
+
+
     public Peed(PeedRequestDto requestDto) {
 
         this.contents = requestDto.getContents();
@@ -46,6 +50,14 @@ public class Peed extends Timestamped{
 
     public void update(PeedRequestDto requestDto) {
         this.contents = requestDto.getContents();
+    }
+
+    public void likesCount (String oper) {
+        if(oper.equals("+")) {
+            this.likesCount++;
+        } else if(oper.equals("-")) {
+            this.likesCount--;
+        }
 
     }
 }

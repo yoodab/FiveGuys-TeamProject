@@ -23,6 +23,8 @@ public class PeedResponseDto {
 
     @Schema(description = "수정 일시")
     private LocalDateTime modifiedAt;
+    private int likeCount;
+
 
     public PeedResponseDto(Peed savepeed) {
         this.id = savepeed.getId();
@@ -30,5 +32,7 @@ public class PeedResponseDto {
         this.contents = savepeed.getContents();
         this.createdAt = savepeed.getCreatedAt();
         this.modifiedAt = savepeed.getModifiedAt();
+        this.likeCount = savepeed.getLikesCount();
+
     }
 }
