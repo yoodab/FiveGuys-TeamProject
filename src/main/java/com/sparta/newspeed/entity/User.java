@@ -2,7 +2,6 @@ package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.Timestamped;
 import com.sparta.newspeed.dto.SignupReqDto;
-import com.sparta.newspeed.dto.UserReqDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -61,12 +60,7 @@ public class User extends Timestamped {
         this.userStatus = UserStatusEnum.WITHDREW;
     }
 
-    public void update(UserReqDto userReqDto) {
-        this.username = userReqDto.getUsername();
-        this.email = userReqDto.getEmail();
-        this.introduce = userReqDto.getIntroduce();
-        this.password = userReqDto.getPassword();
-    }
+
 }
 
 //    private RefreshToken refreshToken; // 리프레쉬 토큰
