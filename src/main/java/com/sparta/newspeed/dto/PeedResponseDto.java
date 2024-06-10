@@ -2,6 +2,7 @@ package com.sparta.newspeed.dto;
 
 import com.sparta.newspeed.entity.Peed;
 import com.sparta.newspeed.like.Likes;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -9,11 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Schema(description = "피드 응답 DTO")
 public class PeedResponseDto {
+    @Schema(description = "피드 ID")
     private Long id;
+
+    @Schema(description = "작성자 닉네임")
     private String nickname;
+
+    @Schema(description = "피드 내용")
     private String contents;
+
+    @Schema(description = "작성 일시")
     private LocalDateTime createdAt;
+
+    @Schema(description = "수정 일시")
     private LocalDateTime modifiedAt;
     private int likeCount;
 

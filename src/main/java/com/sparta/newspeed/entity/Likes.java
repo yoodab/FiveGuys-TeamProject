@@ -1,8 +1,5 @@
-package com.sparta.newspeed.like;
+package com.sparta.newspeed.entity;
 
-import com.sparta.newspeed.entity.Comment;
-import com.sparta.newspeed.entity.Peed;
-import com.sparta.newspeed.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

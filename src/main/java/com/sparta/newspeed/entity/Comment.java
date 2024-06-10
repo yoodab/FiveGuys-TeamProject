@@ -1,14 +1,10 @@
 package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.dto.CommentReqDto;
-import com.sparta.newspeed.like.Likes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Setter

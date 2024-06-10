@@ -1,7 +1,6 @@
 package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.dto.PeedRequestDto;
-import com.sparta.newspeed.like.Likes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

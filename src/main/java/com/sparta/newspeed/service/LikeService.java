@@ -1,12 +1,12 @@
-package com.sparta.newspeed.like;
+package com.sparta.newspeed.service;
 
 import com.sparta.newspeed.entity.Comment;
+import com.sparta.newspeed.entity.Likes;
 import com.sparta.newspeed.entity.Peed;
 import com.sparta.newspeed.entity.User;
+import com.sparta.newspeed.entity.ContentTypeEnum;
+import com.sparta.newspeed.repository.LikeRepository;
 import com.sparta.newspeed.security.UserDetailsImpl;
-import com.sparta.newspeed.service.CommentService;
-import com.sparta.newspeed.service.PeedService;
-import com.sparta.newspeed.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

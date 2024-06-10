@@ -1,4 +1,4 @@
-package com.sparta.newspeed.like;
+package com.sparta.newspeed.entity;
 
 public enum  ContentTypeEnum {
     PEED("PEED"),

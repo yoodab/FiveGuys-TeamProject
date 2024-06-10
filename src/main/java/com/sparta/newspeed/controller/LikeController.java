@@ -1,5 +1,6 @@
-package com.sparta.newspeed.like;
+package com.sparta.newspeed.controller;
 
+import com.sparta.newspeed.service.LikeService;
 import com.sparta.newspeed.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +19,14 @@ public class LikeController {
 
 
 
-    @PutMapping("{peedsId}/like")
+    @PutMapping("{peedsId}/likes")
     public ResponseEntity<String> likeFeed (@PathVariable Long peedsId,
                                               @AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
         return likeService.likeFeed(peedsId, userDetailsImpl);
 
     }
 
-    @PutMapping("/{peedsId}/comments/{commentId}/like")
+    @PutMapping("/{peedsId}/comments/{commentId}/likes")
     public ResponseEntity<String> likeComment(@PathVariable Long peedsId,
                                               @PathVariable Long commentId,
                                               @AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {

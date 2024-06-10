@@ -28,6 +28,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
+
     private final LogoutAccessTokenService LogoutAccessTokenService;
     private final JwtUtil jwtUtil;
 
@@ -47,6 +48,7 @@ public class UserService {
 
         // 사용자 등록
         User user = new User(requestDto);
+
         userRepository.save(user);
 
         return "회원가입 성공";
