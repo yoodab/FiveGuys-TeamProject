@@ -24,6 +24,7 @@ public class CommentResDto {
 
     @Schema(description = "댓글 수정일")
     private LocalDateTime modifiedAt;
+    private int likesCount;
 
     public CommentResDto(Comment comment) {
         this.nickname = comment.getUser().getNickname();
@@ -31,5 +32,6 @@ public class CommentResDto {
         this.content = comment.getContent();
         this.createdAt = comment.getCreatedAt();
         this.modifiedAt = comment.getModifiedAt();
+        this.likesCount = comment.getLikesCount();
     }
 }

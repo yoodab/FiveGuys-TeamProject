@@ -9,6 +9,7 @@ import com.sparta.newspeed.repository.CommentRepository;
 import com.sparta.newspeed.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.IllegalTransactionStateException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -68,6 +69,9 @@ public class CommentService {
     }
 
 
+    public Comment findCommentById(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(()-> new IllegalTransactionStateException("등록되지 않은 댓글입니다."));
+    }
 }
 
 
