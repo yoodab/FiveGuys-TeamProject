@@ -54,6 +54,7 @@ public class PeedService {
     }
 
     public Page<PeedResponseDto> getAllPeeds(int page, int size, String sortBy, boolean isAsc) {
+
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -66,7 +67,7 @@ public class PeedService {
         return peeds.map(PeedResponseDto::new);
     }
 
-    Peed findPeed(Long id) {
+    public Peed findPeed(Long id) {
         return peedRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("peed not found"));
     }
