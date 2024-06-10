@@ -1,6 +1,7 @@
 package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.Timestamped;
+import com.sparta.newspeed.dto.ProfileReqDto;
 import com.sparta.newspeed.dto.SignupReqDto;
 import com.sparta.newspeed.dto.UserReqDto;
 import jakarta.persistence.*;
@@ -61,12 +62,14 @@ public class User extends Timestamped {
         this.userStatus = UserStatusEnum.WITHDREW;
     }
 
-    public void update(UserReqDto userReqDto) {
-        this.username = userReqDto.getUsername();
-        this.email = userReqDto.getEmail();
-        this.introduce = userReqDto.getIntroduce();
-        this.password = userReqDto.getPassword();
+    public void update(ProfileReqDto profileReqDto) {
+        this.username = profileReqDto.getUsername();
+        this.email = profileReqDto.getEmail();
+        this.introduce = profileReqDto.getIntroduce();
+        this.password = profileReqDto.getChangePassword();
+
     }
+
 
 }
 
