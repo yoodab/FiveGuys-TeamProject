@@ -1,12 +1,18 @@
 package com.sparta.newspeed.service;
 
+import com.sparta.newspeed.entity.User;
+import com.sparta.newspeed.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -16,6 +22,8 @@ import java.util.Random;
 public class EmailService {
     private final JavaMailSender javaMailSender;
     private String authNum; // 인증 번호
+    private final Map<String, String> emailAuthMap = new HashMap<>(); // 이메일과 인증 번호 저장
+    private final UserRepository userRepository;
 
     // 인증번호 8자리 무작위 생성
     public void createCode() {
@@ -45,7 +53,7 @@ public class EmailService {
         createCode();
         String setFrom = "testtest12@gmail.com";
         String toEmail = email;
-        String title = "데옹 인증번호 테스트";
+        String title = "인증번호 테스트";
 
         MimeMessage message = javaMailSender.createMimeMessage();
         message.addRecipients(MimeMessage.RecipientType.TO, toEmail);
@@ -80,7 +88,16 @@ public class EmailService {
         MimeMessage emailForm = createEmailForm(email);
         //실제 메일 전송
         javaMailSender.send(emailForm);
-
+        emailAuthMap.put(email, authNum);
         return authNum; //인증 코드 반환
+    }
+    @Transactional
+    public boolean verifyCode(String email, String code) {
+        String storedCode = emailAuthMap.get(email);
+        if (storedCode != null && storedCode.equals(code)) {
+            userRepository.updateAuthenticated(email);
+            return true;
+        }
+        return false;
     }
 }

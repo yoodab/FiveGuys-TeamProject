@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class User extends Timestamped {
     private UserStatusEnum userStatus; // 회원 상태코드
     @Column(nullable = true)
     private String refreshToken=null;
+    @Column(nullable = false)
+    private boolean authenticated=false;
 
     @OneToMany(mappedBy="user")
     private List<Peed> peedlist = new ArrayList<>();
@@ -58,6 +61,9 @@ public class User extends Timestamped {
 
     public void withdraw() {
         this.userStatus = UserStatusEnum.WITHDREW;
+    }
+    public void authcheck(User user){
+        this.authenticated= user.authenticated;
     }
 
 

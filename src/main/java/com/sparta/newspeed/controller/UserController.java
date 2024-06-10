@@ -3,6 +3,7 @@ package com.sparta.newspeed.controller;
 import com.sparta.newspeed.dto.SignupReqDto;
 import com.sparta.newspeed.dto.UserServiceReqDto;
 import com.sparta.newspeed.dto.WithdrawReqDto;
+import com.sparta.newspeed.repository.UserRepository;
 import com.sparta.newspeed.security.UserDetailsImpl;
 import com.sparta.newspeed.service.EmailService;
 import com.sparta.newspeed.service.UserService;
@@ -29,6 +30,7 @@ public class UserController {
 
     private final UserService userService;
     private final EmailService emailService;
+    private final UserRepository userRepository;
 
     @Operation(summary = "회원가입", description = "회원가입을 수행합니다.")
     @PostMapping("/signup")
@@ -38,6 +40,16 @@ public class UserController {
         return new ResponseEntity<>(signupMessage, HttpStatus.OK);
     } //회원 가입
 
+    @PostMapping("/verify")
+    public ResponseEntity<String> verifyCode(@RequestParam String email, @RequestParam String code) {
+        boolean isVerified = emailService.verifyCode(email, code);
+        if (isVerified) {
+
+            return ResponseEntity.ok("인증 성공");
+        } else {
+            return ResponseEntity.status(400).body("인증 코드가 일치하지 않습니다.");
+        }
+    }//이메일인증
 
     @Operation(summary = "회원 탈퇴", description = "회원 탈퇴를 수행합니다.")
     @PutMapping("/withdraw")

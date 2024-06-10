@@ -46,7 +46,6 @@ public class Peed extends Timestamped{
 
     public void update(PeedRequestDto requestDto) {
         this.contents = requestDto.getContents();
-
     }
 }
 
