@@ -54,6 +54,7 @@ public class PeedService {
     }
 
     public Page<PeedResponseDto> getAllPeeds(int page, int size, String sortBy, boolean isAsc) {
+
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);

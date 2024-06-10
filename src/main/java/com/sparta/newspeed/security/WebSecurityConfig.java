@@ -4,6 +4,7 @@ import com.sparta.newspeed.service.RefreshTokenService;
 import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -20,6 +21,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @Configuration
 @EnableWebSecurity // Spring Security 지원을 가능하게 함
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 public class WebSecurityConfig {
 
 
@@ -83,7 +85,7 @@ public class WebSecurityConfig {
 //                                .requestMatchers("/user/**").permitAll()
                                 .requestMatchers("/user/login").permitAll()
                                 .requestMatchers("/user/signup").permitAll() // 인증이 필요 없다, 토큰이 없어도 된다.
-                                .requestMatchers(HttpMethod.GET,"/peeds/**").permitAll()// '/api/user/'로 시작하는 요청 모두 접근 허가
+                                .requestMatchers(HttpMethod.GET,"/api/peeds/**").permitAll()// '/api/user/'로 시작하는 요청 모두 접근 허가
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
 

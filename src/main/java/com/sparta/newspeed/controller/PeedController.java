@@ -32,9 +32,9 @@ public class PeedController {
     @GetMapping("/peeds")
     public Page<PeedResponseDto> getAllPeeds(
             @RequestParam("page") int page,
-            @RequestParam("page") int size,
-            @RequestParam("page") String sortBy,
-            @RequestParam("page") boolean isAsc
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam("isAsc") boolean isAsc
 
     ){
         return peedService.getAllPeeds(page-1, size, sortBy, isAsc);
