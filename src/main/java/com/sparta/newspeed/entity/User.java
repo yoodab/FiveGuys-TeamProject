@@ -2,8 +2,6 @@ package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.Timestamped;
 import com.sparta.newspeed.dto.SignupReqDto;
-import com.sparta.newspeed.dto.UserReqDto;
-import com.sparta.newspeed.like.Likes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

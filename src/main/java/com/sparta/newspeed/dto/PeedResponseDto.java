@@ -1,13 +1,10 @@
 package com.sparta.newspeed.dto;
 
 import com.sparta.newspeed.entity.Peed;
-import com.sparta.newspeed.like.Likes;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Schema(description = "피드 응답 DTO")
