@@ -1,6 +1,7 @@
 package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.dto.PeedRequestDto;
+import com.sparta.newspeed.like.Likes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,9 @@ public class Peed extends Timestamped{
 
     @OneToMany(mappedBy="peed")
     private List<Comment> commentList = new ArrayList<>();
+
+//    @OneToMany
+//    private List<Likes> likesList = new ArrayList<>();
 
     public Peed(PeedRequestDto requestDto) {
 

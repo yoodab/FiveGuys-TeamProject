@@ -1,10 +1,14 @@
 package com.sparta.newspeed.entity;
 
 import com.sparta.newspeed.dto.CommentReqDto;
+import com.sparta.newspeed.like.Likes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,14 +22,15 @@ public class Comment extends Timestamped {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name="peed_id")
+    @JoinColumn(name = "peed_id")
     private Peed peed;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
-
+//    @OneToMany
+//    private List<Likes> likesList = new ArrayList<>();
 
 
     public Comment(CommentReqDto commentReqDto, User user, Peed peed) {
