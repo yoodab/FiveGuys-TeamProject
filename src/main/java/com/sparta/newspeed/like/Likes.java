@@ -33,7 +33,7 @@ public class Likes {
         this.contentId = comment.getId();
         this.user = user;
         this.contentType = contentTypeEnum;
-//        this.user.getLikesList().add(this);
+        this.user.getLikesList().add(this);
 //        comment.getLikesList().add(this);
 
     }
@@ -42,7 +42,7 @@ public class Likes {
         this.contentId = peed.getId();
         this.user = user;
         this.contentType = contentTypeEnum;
-//        this.user.getLikesList().add(this);
+        this.user.getLikesList().add(this);
 //        peed.getLikesList().add(this);
     }
 }

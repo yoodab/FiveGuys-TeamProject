@@ -10,23 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
+@RequestMapping("/peeds")
 @RequiredArgsConstructor
 public class LikeController {
 
     private final LikeService likeService;
 
-    @PutMapping("/comments/{commentId}/like")
-    public ResponseEntity<String> likeComment(@PathVariable Long commentId,
-                                              @AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
-        return likeService.likeComment(commentId, userDetailsImpl);
 
-    }
 
-    @PutMapping("/peeds/{peedsId}/like")
+    @PutMapping("{peedsId}/like")
     public ResponseEntity<String> likeFeed (@PathVariable Long peedsId,
                                               @AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
         return likeService.likeFeed(peedsId, userDetailsImpl);
+
+    }
+
+    @PutMapping("/{peedsId}/comments/{commentId}/like")
+    public ResponseEntity<String> likeComment(@PathVariable Long peedsId,
+                                              @PathVariable Long commentId,
+                                              @AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
+        return likeService.likeComment(commentId, userDetailsImpl);
 
     }
 

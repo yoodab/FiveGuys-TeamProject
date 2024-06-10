@@ -29,9 +29,7 @@ public class Comment extends Timestamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @OneToMany
-//    private List<Likes> likesList = new ArrayList<>();
-
+   private int likesCount;
 
     public Comment(CommentReqDto commentReqDto, User user, Peed peed) {
         this.content = commentReqDto.getContent();
@@ -40,4 +38,14 @@ public class Comment extends Timestamped {
         this.user.getCommentList().add(this);
         this.peed.getCommentList().add(this);
     }
+
+    public void likesCount (String oper) {
+        if(oper.equals("+")) {
+            this.likesCount++;
+        } else if(oper.equals("-")) {
+            this.likesCount--;
+        }
+
+    }
+
 }
