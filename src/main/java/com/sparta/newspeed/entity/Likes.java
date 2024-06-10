@@ -22,7 +22,6 @@ public class Likes extends Timestamped{
     @JoinColumn(name="user_id")
     private User user;
 
-
     @Column(name="content_id", nullable = false)
     private Long contentId;
 

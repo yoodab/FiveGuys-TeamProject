@@ -61,7 +61,8 @@ public class UserController {
 
     @Operation(summary = "로그인", description = "로그인을 수행합니다.")
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserServiceReqDto userServiceDto, HttpServletResponse res) {
+    public ResponseEntity<String> login(@RequestBody @Valid UserServiceReqDto userServiceDto,
+                                        HttpServletResponse res) {
         userService.login(userServiceDto, res);
         return new ResponseEntity<>("로그인 완료", HttpStatus.OK);
     } // 로그인

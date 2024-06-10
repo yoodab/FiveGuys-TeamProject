@@ -25,10 +25,8 @@ import java.util.Optional;
 public class UserService {
 
     private final PasswordEncoder passwordEncoder;
-
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
-
     private final LogoutAccessTokenService LogoutAccessTokenService;
     private final JwtUtil jwtUtil;
 
@@ -75,16 +73,15 @@ public class UserService {
             jwtUtil.addAccessJwtToHeader(accessToken, res);
             jwtUtil.addRefreshJwtToHeader(refreshToken, res);
         }
-
     }
 
     @Transactional
-    public void logout(HttpServletRequest req, UserDetailsImpl userDetailsImple) {
+    public void logout(HttpServletRequest req, UserDetailsImpl userDetailsImpl) {
         String accessToken = jwtUtil.getAccessTokenFromHeader(req);
         accessToken = jwtUtil.substringAccessToken(accessToken);
         LogoutAccessTokenService.saveLogoutAccessToken(accessToken);
 
-        User user = findUserByNickname(userDetailsImple.getUser().getNickname());
+        User user = findUserByNickname(userDetailsImpl.getUser().getNickname());
 
         String refreshTokenValue = user.getRefreshToken();
         RefreshToken issuedRefreshToken = refreshTokenService.findByRefreshToken(refreshTokenValue);
